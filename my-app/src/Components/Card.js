@@ -5,7 +5,7 @@ const Card = (props) => {
   return (
     <div className="Card">
       <p className="Dog-fact">{props.fact}</p>
-      <Button handleClick={props.handleClick} />
+      <Button buttonText={props.buttonText} handleClick={props.handleClick} />
     </div>
   );
 }

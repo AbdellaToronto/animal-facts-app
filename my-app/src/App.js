@@ -7,7 +7,8 @@ class App extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      fact: ['Dog fact']
+      fact: ['Dog fact'],
+      buttonText: `Generate a dog fact`
     }
   }
   handleClick(e) {
@@ -32,14 +33,12 @@ class App extends Component {
 
   fetchData = () => {
     fetch('https://cat-fact.herokuapp.com/facts/random?animal_type=dog&amount')
-    .then(results => {
-      return results.json();
-    }).then(data => {
-      let fact = data.map((fact) => {
-        return fact.text
-      })
+    .then(results => results.json())
+    .then(data => {
+      let fact = data.map((fact) => fact.text)
       this.setState({
-        fact: fact
+        fact: fact,
+        buttonText: `Generate another dog fact`
       });
     })
   }
@@ -47,7 +46,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Card fact={this.state.fact} handleClick={this.handleClick} />
+          <Card buttonText={this.state.buttonText} fact={this.state.fact} handleClick={this.handleClick} />
         </header>
       </div>
     );
