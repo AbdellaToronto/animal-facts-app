@@ -1,24 +1,53 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Card from './Card';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      fact: ['Dog fact']
+    }
+  }
+  handleClick(e) {
+    e.preventDefault();
+    this.fetchData();
+  }
+
+  // why do we use componentDidMount?
+  // componentDidMount() {
+  //   this.fetchData();
+  // }
+
+  // clearFact = () => {
+  //   this.setState({
+  //     fact: ['Dog fact']
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   this.clearFact();
+  // }
+
+  fetchData = () => {
+    fetch('https://cat-fact.herokuapp.com/facts/random?animal_type=dog&amount')
+    .then(results => {
+      return results.json();
+    }).then(data => {
+      let fact = data.map((fact) => {
+        return fact.text
+      })
+      this.setState({
+        fact: fact
+      });
+    })
+  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <Card fact={this.state.fact} handleClick={this.handleClick} />
         </header>
       </div>
     );
