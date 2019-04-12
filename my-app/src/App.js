@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
 import Card from './Components/Card';
+import Toggle from './Components/Toggle';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       fact: ['Dog fact'],
-      buttonText: `Generate a dog fact`
+      buttonText: `Generate a dog fact`,
+      animalType: true,
     }
   }
+
   handleClick(e) {
     e.preventDefault();
     this.fetchData();
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    this.setState({
+      animalType: value
+    });
   }
 
   // why do we use componentDidMount?
@@ -45,6 +58,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Toggle handleInputChange={this.handleInputChange} animalType={this.state.animalType} />
         <header className="App-header">
           <Card buttonText={this.state.buttonText} fact={this.state.fact} handleClick={this.handleClick} />
         </header>
