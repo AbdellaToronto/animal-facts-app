@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       facts: [],
-      numberOfFacts: 1, // try increasing this number - try and understand how changing it actually changes the number of facts you get
+      numberOfFacts: 2, // try increasing this number - try and understand how changing it actually changes the number of facts you get
       animalType: 'dog',
     }
   }
