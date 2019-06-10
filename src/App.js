@@ -23,6 +23,7 @@ class App extends Component {
     .then(results => results.json())
     .then(data => {
       this.setState({
+        // facts: Array.isArray(data) ? [data.text] : data.map(fact => fact.text)
         facts: Array.isArray(data) ? data.map(fact => fact.text) : [data.text]
       });
     });
