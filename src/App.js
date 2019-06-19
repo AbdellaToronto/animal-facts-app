@@ -8,7 +8,7 @@ class App extends Component {
     this.state = {
       facts: [],
       numberOfFacts: 1, // try increasing this number - try and understand how changing it actually changes the number of facts you get
-      animalType: 'dog',
+      animalType: 'dog', // default animal is a dog 
     }
   }
 
@@ -33,7 +33,7 @@ class App extends Component {
     return (
       <div className="App">
         <Toggle handleInputChange={e => this.setAnimalType(e.target.checked ? 'dog' : 'cat')} isDog={this.state.animalType === 'dog'} />
-        <Select numberOfFacts={this.state.numberOfFacts} />
+        <Select onChange={e => this.numberOfFacts(e.target.value)} numberOfFacts={this.state.numberOfFacts} />
         <header className="App-header">
           <Card buttonText={`Generate a ${this.state.animalType} fact`} facts={this.state.facts} handleClick={() => this.getAnimalFact(this.state.animalType, this.state.numberOfFacts)} />
         </header>
