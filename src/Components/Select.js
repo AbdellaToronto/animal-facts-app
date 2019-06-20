@@ -1,12 +1,18 @@
 import React from 'react';
 
-export const Select = ({numberOfFacts}) => {
+export const Select = ({handleChange, numberOfFacts}) => {
   return (
-    <select>
-      <option value={numberOfFacts}>1</option>
-      <option value={numberOfFacts}>2</option>
-      <option value={numberOfFacts}>3</option>
-      <option value={numberOfFacts}>4</option>
-    </select>
+    <div>
+      <label htmlFor="select-dropdown">
+        Select the number of facts you want to see:
+        <select id="select-dropdown" className="select-css" value={numberOfFacts} onChange={handleChange}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </label>
+      
+    </div>
   );
 };

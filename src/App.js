@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Card, Toggle, Select} from './Components';
+import {Card, Toggle, MainForm} from './Components';
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +10,20 @@ class App extends Component {
       numberOfFacts: 1, // try increasing this number - try and understand how changing it actually changes the number of facts you get
       animalType: 'dog', // default animal is a dog 
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      numberOfFacts: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    // console.log('working: ' + this.state.value);
+    // console.log('working: ' + this.state.numberOfFacts);
+    e.preventDefault();
   }
 
   setAnimalType(animalType) {
@@ -17,7 +31,7 @@ class App extends Component {
       animalType // why isn't a value being set here?
     });
   }
-
+  /* *** amount is a parameter for this.state.numberOfFacts*/
   getAnimalFact = (animalType = 'dog', amount = 1) => {
     fetch(`/facts/random?animal_type=${animalType}&amount=${amount}`)
     .then(results => results.json())
@@ -33,9 +47,11 @@ class App extends Component {
     return (
       <div className="App">
         <Toggle handleInputChange={e => this.setAnimalType(e.target.checked ? 'dog' : 'cat')} isDog={this.state.animalType === 'dog'} />
-        <Select onChange={e => this.numberOfFacts(e.target.value)} numberOfFacts={this.state.numberOfFacts} />
+        {/* do not use onChange and onSubmit as props here; use the function name instead */}
+        <MainForm value={this.state.numberOfFacts} handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <header className="App-header">
           <Card buttonText={`Generate a ${this.state.animalType} fact`} facts={this.state.facts} handleClick={() => this.getAnimalFact(this.state.animalType, this.state.numberOfFacts)} />
+          {/* `amount`, as set in the fetch function, is a parameter for this.state.numberOfFacts*/}
         </header>
       </div>
     );
